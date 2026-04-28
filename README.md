@@ -1,101 +1,60 @@
 # AI DevOps Risk Analyzer
 
-> AI-inspired deployment risk analysis, test recommendation & deployment decisions — built with FastAPI + React.
+> AI-inspired deployment risk analysis, test recommendation & deployment decisions — built with a complete modern DevOps architecture.
 
 ---
 
-## 🚀 One-Command Start
+## 🏗️ DevOps Architecture Features
+
+This project isn't just an app *about* DevOps; it's built using industry-standard DevOps practices:
+
+*   **Containerization (Docker)**: Multi-stage Docker builds. The frontend is built with Node and served via an ultra-lightweight Nginx container. The backend runs FastAPI in an optimized Python container.
+*   **Continuous Integration (GitHub Actions)**: Automated CI/CD pipeline triggers on every push. It runs `pytest` for the backend, builds the React frontend, and creates production-ready Docker images automatically.
+*   **Observability & Monitoring**: Fully integrated Prometheus and Grafana stack. The FastAPI backend exposes a `/metrics` endpoint to monitor HTTP request times, error rates, and API traffic in real-time.
+*   **Infrastructure as Code (IaC)**: Includes foundational Terraform scripts (`terraform/`) designed to provision AWS EC2 infrastructure automatically.
+
+---
+
+## 🚀 Quick Start (Docker)
+
+The easiest way to run the entire cluster locally is using Docker Compose:
 
 ```bash
-# Windows
-setup.bat
+# Start Frontend, Backend, Prometheus, and Grafana
+docker compose up -d --build
 ```
 
-This will:
-1. Create Python virtual environment
-2. Install all Python + Node dependencies
-3. Start backend on `http://localhost:8000`
-4. Start frontend on `http://localhost:3000`
-5. Open the browser automatically
+### Access the Services:
+*   **Web UI (React + Nginx)**: http://localhost:3000
+*   **Backend API Docs**: http://localhost:8000/docs
+*   **Grafana Dashboards**: http://localhost:3001 (Login: `admin` / `admin`)
+*   **Prometheus Metrics**: http://localhost:9090
 
 ---
 
 ## 🗂️ Project Structure
 
-```
+```text
 ai-devops-analyzer/
-├── backend/
-│   ├── main.py            ← FastAPI app + API routes
-│   ├── risk_engine.py     ← Rule-based risk scoring
-│   ├── test_engine.py     ← Test recommendation + simulation
-│   ├── decision_engine.py ← Deployment decision logic
-│   └── requirements.txt
-├── frontend/
-│   └── src/
-│       └── App.jsx        ← Full React UI (wizard + results + history)
-└── setup.bat              ← One-click setup
+├── .github/workflows/   ← CI/CD Pipelines (GitHub Actions)
+├── backend/             ← FastAPI app, Pytest suite, Prometheus Instrumentator
+├── frontend/            ← React UI, Tailwind, Nginx configuration
+├── prometheus/          ← Metrics scraping configuration
+├── terraform/           ← Infrastructure as Code (AWS)
+├── docker-compose.yml   ← Orchestrates all 4 microservices
+└── setup.bat            ← Legacy native setup script
 ```
 
 ---
 
-## 🧠 How It Works
+## 🧠 How The Risk Analyzer Works
 
-| Module | Logic |
-|--------|-------|
-| **Risk Engine** | Keyword weights (deterministic) — `payment`, `auth`, `security` → higher risk |
-| **Test Engine** | Low → Unit Test · Medium → Integration · High → Regression |
-| **Decision** | PASS → DEPLOY · FAIL+Low → RETRY · FAIL+High → BLOCK |
-
----
-
-## 🛠️ Manual Start
-
-```bash
-# Backend
-cd backend
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
-
-# Frontend (new terminal)
-cd frontend
-npm install
-npm run dev
-```
-
----
-
-## 📡 API
-
-**POST** `http://localhost:8000/analyze`
-
-```json
-{
-  "requirement": "Add Stripe payment gateway for subscriptions",
-  "repo_url": "https://github.com/myorg/backend",
-  "branch": "main"
-}
-```
-
-**Response:**
-```json
-{
-  "risk_score": 0.65,
-  "risk_level": "Medium",
-  "confidence": 0.35,
-  "triggered_keywords": ["payment", "stripe"],
-  "test_type": "Integration Test",
-  "test_result": "PASS",
-  "pass_rate": 0.91,
-  "coverage": 0.84,
-  "tests_run": 78,
-  "deployment_decision": "DEPLOY"
-}
-```
+1.  **Risk Engine**: Analyzes the developer's feature request (keyword weights) and the actual files changed in GitHub.
+2.  **Test Engine**: Recommends testing strategies based on the risk score (Low → Unit Test, High → Regression).
+3.  **Decision Engine**: Automatically decides to `DEPLOY`, `RETRY`, or `BLOCK` the deployment based on simulated test success rates and risk thresholds.
 
 ---
 
 ## 🎓 Viva Defense Line
 
-> *"We used a rule-based system that mimics feature weighting in machine learning models, due to lack of real DevOps training data. The system is deterministic for risk scoring — same input always produces the same risk output — while test simulation uses controlled randomness to model real-world test uncertainty."*
+> *"We built a deterministic rule-based system for risk scoring, mimicking ML feature weighting. To make this a true DevOps project, we wrapped the entire application in a microservice architecture using Docker and Nginx, implemented Continuous Integration with GitHub Actions, and established real-time API observability using Prometheus and Grafana."*
