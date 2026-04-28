@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+const API_URL = import.meta.env.VITE_API_URL || 'https://ai-devops-backend.onrender.com'
 
 const slide = {
   enter: d => ({ x: d > 0 ? 40 : -40, opacity: 0 }),
