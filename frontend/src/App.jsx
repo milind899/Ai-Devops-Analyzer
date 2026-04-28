@@ -234,7 +234,7 @@ function ResultsPanel({ result, onReset }) {
   if (result.deployment_decision === 'BLOCK') { dColor = 'text-rose-400'; dBg = 'bg-rose-500/5'; dBorder = 'border-rose-500/30' }
 
   return (
-    <motion.div variants={fade} initial="hidden" animate="show" className="flex flex-col gap-6 w-full max-w-2xl mx-auto">
+    <motion.div variants={fade} initial="hidden" animate="show" className="flex flex-col gap-8 w-full max-w-5xl mx-auto">
       <div className="text-center space-y-1">
         <h2 className="text-2xl font-bold text-white tracking-tight">Analysis Report</h2>
         <p className="text-xs text-zinc-500 font-mono">{new Date().toISOString()}</p>
@@ -363,7 +363,7 @@ export default function App() {
       </motion.div>
 
       <motion.div 
-        className={`w-full ${step === 3 ? 'max-w-2xl' : 'max-w-md'} bg-zinc-900/60 backdrop-blur-xl border border-zinc-800/80 rounded-3xl p-6 sm:p-10 shadow-2xl relative z-10 transition-all duration-500 ease-in-out`}
+        className={`w-full ${step === 3 ? 'max-w-7xl' : 'max-w-4xl'} bg-zinc-900/60 backdrop-blur-xl border border-zinc-800/80 rounded-3xl p-8 sm:p-14 shadow-2xl relative z-10 transition-all duration-500 ease-in-out`}
       >
         {step < 3 && <ProgressDots step={step} />}
 
