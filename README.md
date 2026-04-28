@@ -1,23 +1,23 @@
 # AI DevOps Risk Analyzer
 
-> AI-inspired deployment risk analysis, test recommendation & deployment decisions — built with a complete modern DevOps architecture.
+AI-inspired deployment risk analysis, test recommendation, and deployment decision engine built with a complete modern DevOps architecture.
 
 ---
 
-## 🏗️ DevOps Architecture Features
+## DevOps Architecture Features
 
-This project isn't just an app *about* DevOps; it's built using industry-standard DevOps practices:
+This project is built using industry-standard DevOps practices:
 
-*   **Containerization (Docker)**: Multi-stage Docker builds. The frontend is built with Node and served via an ultra-lightweight Nginx container. The backend runs FastAPI in an optimized Python container.
-*   **Continuous Integration (GitHub Actions)**: Automated CI/CD pipeline triggers on every push. It runs `pytest` for the backend, builds the React frontend, and creates production-ready Docker images automatically.
+*   **Containerization (Docker)**: Utilizes multi-stage Docker builds. The frontend is compiled with Node and served via an optimized Nginx container. The backend runs FastAPI in a dedicated Python container.
+*   **Continuous Integration (GitHub Actions)**: Automated CI/CD pipelines trigger on every push, running automated `pytest` suites for the backend, building the React frontend, and generating production-ready Docker images.
 *   **Observability & Monitoring**: Fully integrated Prometheus and Grafana stack. The FastAPI backend exposes a `/metrics` endpoint to monitor HTTP request times, error rates, and API traffic in real-time.
-*   **Infrastructure as Code (IaC)**: Includes foundational Terraform scripts (`terraform/`) designed to provision AWS EC2 infrastructure automatically.
+*   **Infrastructure as Code (IaC)**: Includes foundational Terraform scripts (`terraform/`) designed to provision scalable cloud infrastructure automatically.
 
 ---
 
-## 🚀 Quick Start (Docker)
+## Quick Start (Docker)
 
-The easiest way to run the entire cluster locally is using Docker Compose:
+The recommended way to run the entire cluster locally is using Docker Compose:
 
 ```bash
 # Start Frontend, Backend, Prometheus, and Grafana
@@ -27,34 +27,28 @@ docker compose up -d --build
 ### Access the Services:
 *   **Web UI (React + Nginx)**: http://localhost:3000
 *   **Backend API Docs**: http://localhost:8000/docs
-*   **Grafana Dashboards**: http://localhost:3001 (Login: `admin` / `admin`)
+*   **Grafana Dashboards**: http://localhost:3001 (Login: admin / admin)
 *   **Prometheus Metrics**: http://localhost:9090
 
 ---
 
-## 🗂️ Project Structure
+## Project Structure
 
 ```text
 ai-devops-analyzer/
-├── .github/workflows/   ← CI/CD Pipelines (GitHub Actions)
-├── backend/             ← FastAPI app, Pytest suite, Prometheus Instrumentator
-├── frontend/            ← React UI, Tailwind, Nginx configuration
-├── prometheus/          ← Metrics scraping configuration
-├── terraform/           ← Infrastructure as Code (AWS)
-├── docker-compose.yml   ← Orchestrates all 4 microservices
-└── setup.bat            ← Legacy native setup script
+├── .github/workflows/   - CI/CD Pipelines (GitHub Actions)
+├── backend/             - FastAPI app, Pytest suite, Prometheus Instrumentator
+├── frontend/            - React UI, Tailwind CSS, Nginx configuration
+├── prometheus/          - Metrics scraping configuration
+├── terraform/           - Infrastructure as Code templates
+├── docker-compose.yml   - Orchestrates all microservices
+└── setup.bat            - Legacy native setup script
 ```
 
 ---
 
-## 🧠 How The Risk Analyzer Works
+## How The Risk Analyzer Works
 
-1.  **Risk Engine**: Analyzes the developer's feature request (keyword weights) and the actual files changed in GitHub.
-2.  **Test Engine**: Recommends testing strategies based on the risk score (Low → Unit Test, High → Regression).
-3.  **Decision Engine**: Automatically decides to `DEPLOY`, `RETRY`, or `BLOCK` the deployment based on simulated test success rates and risk thresholds.
-
----
-
-## 🎓 Viva Defense Line
-
-> *"We built a deterministic rule-based system for risk scoring, mimicking ML feature weighting. To make this a true DevOps project, we wrapped the entire application in a microservice architecture using Docker and Nginx, implemented Continuous Integration with GitHub Actions, and established real-time API observability using Prometheus and Grafana."*
+1.  **Risk Engine**: Analyzes the developer's feature request context alongside the actual files changed in the provided GitHub repository.
+2.  **Test Engine**: Recommends appropriate testing strategies based on the calculated risk score (e.g., Low Risk triggers Unit Tests, High Risk triggers Regression Suites).
+3.  **Decision Engine**: Automatically renders a final pipeline decision (DEPLOY, RETRY, or BLOCK) based on simulated test success rates and risk thresholds.
